@@ -1,26 +1,71 @@
 require('dotenv').config();
+var mongoose = require("mongoose");
 
+mongoose.connect("mongodb+srv://ajmal_123:ajmal_123@cluster0.gyspb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true });
 
-let Person;
+const {Schema} = mongoose;
+
+const personSchema = new Schema({
+  name: { type: String, required: true },
+  age: Number,
+  favoriteFoods: [String]
+});
+
+const Person = mongoose.model('Person',personSchema);
 
 const createAndSavePerson = (done) => {
-  done(null /*, data*/);
+  let Ajmal = new Person({
+    name: "Ajmal Saleem",
+    age:22,
+    favoriteFoods: ["Meat","Egg","Fruits & Veggies"]
+  })
+
+Ajmal.save((err,data)=>{
+  if (err) console.log(err);
+  done(null , data);
+})
 };
 
+let arrayOfPeople = [{
+    name: "Saleem",
+    age:22,
+    favoriteFoods: ["Milk","Egg","Fruits & Veggies"]
+  },{
+    name: "Shameel",
+    age:25,
+    favoriteFoods: ["Meat","Egg","Veggies"]
+  },{
+    name: "Najla Saleem",
+    age:15,
+    favoriteFoods: ["Fruits & Veggies"]
+  }];
+
 const createManyPeople = (arrayOfPeople, done) => {
-  done(null /*, data*/);
+Person.create(arrayOfPeople,(err,data)=>{
+  if (err) console.log(err);
+  done(null , data);
+})
 };
 
 const findPeopleByName = (personName, done) => {
-  done(null /*, data*/);
+  Person.find({name:personName},(err,data)=>{
+  if (err) console.log(err);
+  done(null , data);
+})
 };
 
 const findOneByFood = (food, done) => {
-  done(null /*, data*/);
+  Person.findOne({favoriteFoods:food},(err,data)=>{
+  if (err) console.log(err);
+  done(null , data);
+})
 };
 
 const findPersonById = (personId, done) => {
-  done(null /*, data*/);
+  Person.findById({_id:personId},(err,data)=>{
+  if (err) console.log(err);
+  done(null , data);
+})
 };
 
 const findEditThenSave = (personId, done) => {
