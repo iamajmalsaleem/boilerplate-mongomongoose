@@ -1,7 +1,7 @@
 require('dotenv').config();
 var mongoose = require("mongoose");
 
-mongoose.connect("mongodb+srv://ajmal_123:ajmal_123@cluster0.gyspb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect("mongodb+srv://ajmal_123:<password>@cluster0.gyspb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true });
 
 const { Schema } = mongoose;
 
